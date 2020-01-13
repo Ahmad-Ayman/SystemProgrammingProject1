@@ -7,11 +7,13 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class ReadingInput {
     private String filePath;
     String input;
+
     public ReadingInput(String filePath) {
         this.filePath = filePath;
         input = readInputFile(this.filePath);
@@ -27,6 +29,10 @@ public class ReadingInput {
         return contentBuilder.toString();
     }
 
+    public String progName() {
+        Scanner scanner = new Scanner(input);
+        return scanner.next();
+    }
 
 
 }

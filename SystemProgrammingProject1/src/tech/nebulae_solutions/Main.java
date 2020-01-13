@@ -11,6 +11,7 @@ public class Main {
         boolean checker = false;
         List<String> column1 = new ArrayList<>();
         List<String> column3 = new ArrayList<>();
+        String programName;
         Scanner opop = new Scanner(System.in);
         System.out.print("Enter the path of the problem text : ");
         String ll = opop.nextLine();
@@ -32,6 +33,7 @@ public class Main {
 //
 //        }
         int addedvalue = 0;
+        programName = "aa";
         for (int k = 0; scanner.hasNextLine(); k++) {
             checker = false;
             String line = scanner.nextLine();
@@ -412,7 +414,7 @@ public class Main {
             int k = i + 1;
             String code = "";
             if (startAddressTit.get(k).toUpperCase().equals("RESW") || startAddressTit.get(k).toUpperCase().equals("RESB")) {
-                passTwoTable[i] = new String[]{startAddress.get(k), column1.get(k).toUpperCase(), startAddressTit.get(k).toUpperCase(), column3.get(k), "No Obj Code"};
+                passTwoTable[i] = new String[]{startAddress.get(k), column1.get(k).toUpperCase(), startAddressTit.get(k).toUpperCase(), column3.get(k), "------"};
             } else {
 
                 if ((column1.get(k) == null || column1.get(k).isEmpty()) && (column3.get(k) == null || column3.get(k).isEmpty())) {
@@ -483,7 +485,7 @@ public class Main {
         System.out.print("\n\n");
         System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
 
-        System.out.println("Location" + "\t\t|\t\t\t\t\t\t\t\t\t"+"Source Statement"+"\t\t\t\t\t\t\t\t|\t\t  Object Code");
+        System.out.println("Location" + "\t\t|\t\t\t\t\t\t\t\t\t" + "Source Statement" + "\t\t\t\t\t\t\t\t|\t\t  Object Code");
         System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
 
 
@@ -510,7 +512,59 @@ public class Main {
             System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
 
         }
+        System.out.println("--------------------------------------------------------HTE Record--------------------------------------------------------");
+        StringBuilder hRecord = new StringBuilder();
+        StringBuilder tRecord = new StringBuilder();
+        StringBuilder eRecord = new StringBuilder();
 
+        hRecord.append("H˄");
+        hRecord.append(LPad(readingInput.progName(), 6, 'x'));
+        hRecord.append("˄");
+        hRecord.append(RPad(startAddress.get(0), 6, '0'));
+        hRecord.append("˄");
+        int startAddressForH = Integer.parseInt(startAddress.get(0), 16);
+        int endAddressForH = Integer.parseInt(startAddress.get(startAddress.size() - 1), 16);
+        int lengthForH = endAddressForH - startAddressForH;
+        String leng = Integer.toHexString(lengthForH);
+        hRecord.append(RPad(leng, 6, '0'));
+        hRecord.append("\n");
+        System.out.print(hRecord.toString());
+        tRecord.append("T˄");
+        tRecord.append(RPad(passTwoTable[0][0],6,'0'));
+        tRecord.append("˄");
+        tRecord.append("LENGTH");
+        tRecord.append("˄");
+        for (int i = 0; i < passTwoTable.length-1; i++) {
+            if (passTwoTable[i][4].equals("------")) {
+                if (passTwoTable[i + 1][4].equals("------")) {
+                    continue;
+                }
+                //String lenn = Integer.toHexString(Integer.parseInt(passTwoTable[i][0],16) - tRecord.indexOf("^"))
+                //tRecord.replace(tRecord.indexOf("LENGTH"),tRecord.indexOf("LENGTH")+"LENGTH".length(),lenn);
+                tRecord.delete(tRecord.length()-1,tRecord.length());
+                tRecord.append("\nT˄");
+                tRecord.append(RPad(passTwoTable[i + 1][0],6,'0'));
+                tRecord.append("˄");
+                tRecord.append("LENGTH");
+                tRecord.append("˄");
+            } else {
+                tRecord.append(passTwoTable[i][4]);
+                tRecord.append("˄");
+            }
+        }
+        tRecord.delete(tRecord.length()-1,tRecord.length());
+        System.out.print(tRecord.toString());
+        eRecord.append("\n");
+        eRecord.append("E˄");
+        eRecord.append(RPad(startAddress.get(0), 6, '0'));
+        System.out.print(eRecord.toString());
+    }
 
+    public static String RPad(String str, Integer length, char car) {
+        return (String.format("%" + length + "s", "").replace(" ", String.valueOf(car)) + str).substring(str.length(), length + str.length());
+    }
+
+    public static String LPad(String str, Integer length, char car) {
+        return (str + String.format("%" + length + "s", "").replace(" ", String.valueOf(car))).substring(0, length);
     }
 }
