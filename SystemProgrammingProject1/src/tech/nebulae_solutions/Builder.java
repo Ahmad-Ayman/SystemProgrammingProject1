@@ -19,6 +19,7 @@ public class Builder {
     ArrayList<String> calculatedOutput = new ArrayList<String>();
     int row = 0;
 
+    ArrayList<String> allT = new ArrayList<>();
 
     void build() {
         tempMatrix.add(new ArrayList<MyObject>());
@@ -40,14 +41,18 @@ public class Builder {
         }
         concatRow();
 
-       // System.out.println(Arrays.toString(tempMatrix.toArray()));
-       // System.out.println(lineOutput);
-        for(int i =0 ; i<lineOutput.size() ; i++){
+        // System.out.println(Arrays.toString(tempMatrix.toArray()));
+        // System.out.println(lineOutput);
+        allT = lineOutput;
+        for (int i = 0; i < lineOutput.size(); i++) {
             System.out.println(lineOutput.get(i));
         }
         //System.out.println(calculatedOutput);
     }
 
+    ArrayList<String> allTRecords() {
+        return allT;
+    }
 
     void concatRow() {
         if (tempMatrix.get(row).size() > 0) {
@@ -59,14 +64,14 @@ public class Builder {
             calculatedOutput.add(Integer.toHexString(recordedDifference));
             StringBuilder s = new StringBuilder();
             s.append("T^");
-            s.append(RPad(Integer.toHexString(firstItemNumber),6,'0'));
+            s.append(Integer.toHexString(firstItemNumber));
             s.append("^");
-            s.append(RPad(Integer.toHexString(recordedDifference),2,'0'));
+            s.append(Integer.toHexString(recordedDifference));
             s.append("^");
             s.append(join(map(tempMatrix.get(row))));
-            s.deleteCharAt(s.length()-1);
+            s.deleteCharAt(s.length() - 1);
             lineOutput.add(s.toString());
-          //  lineOutput.add("T^"+RPad(Integer.toHexString(firstItemNumber),6,'0')+ "^"+RPad(Integer.toHexString(recordedDifference),2,'0')+"^"+ join(map(tempMatrix.get(row))));
+            //  lineOutput.add("T^"+RPad(Integer.toHexString(firstItemNumber),6,'0')+ "^"+RPad(Integer.toHexString(recordedDifference),2,'0')+"^"+ join(map(tempMatrix.get(row))));
         }
     }
 
@@ -90,9 +95,7 @@ public class Builder {
         }
         return s;
     }
-    public static String RPad(String str, Integer length, char car) {
-        return (String.format("%" + length + "s", "").replace(" ", String.valueOf(car)) + str).substring(str.length(), length + str.length());
-    }
+
 }
 
 class MyObject {

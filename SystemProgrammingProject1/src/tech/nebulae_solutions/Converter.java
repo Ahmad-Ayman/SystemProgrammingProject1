@@ -6,7 +6,10 @@ import java.util.List;
 class Converter {
     final String[][] OPTAB = new String[59][3];
     final String[][] KEYWORDS = new String[5][2];
-    static String [][] MERGE;
+    static String[][] MERGE;
+    //registers
+    static ArrayList<String> regname = new ArrayList<>();
+    static ArrayList<String> regvalue = new ArrayList<>();
 
     Converter() {
         initialize();
@@ -74,6 +77,24 @@ class Converter {
         OPTAB[58] = new String[]{"WD", "3", "DC"};
 
 
+        regname.add("A");
+        regname.add("X");
+        regname.add("L");
+        regname.add("B");
+        regname.add("S");
+        regname.add("T");
+        regname.add("F");
+        regname.add("PC");
+        regname.add("SW");
+        regvalue.add("0");
+        regvalue.add("1");
+        regvalue.add("2");
+        regvalue.add("3");
+        regvalue.add("4");
+        regvalue.add("5");
+        regvalue.add("6");
+        regvalue.add("8");
+        regvalue.add("9");
     }
 
 //    static void assignAll(ArrayList<String> loc, ) {
