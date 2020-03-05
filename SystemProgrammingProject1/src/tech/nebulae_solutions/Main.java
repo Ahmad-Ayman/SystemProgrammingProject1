@@ -9,7 +9,7 @@ public class Main {
 
 
         while (true) {
-            System.out.print("Enter 1 - for SIC Machine, 2 - for SIC/XE Machine or 3 - for Exit : ");
+            System.out.print("Enter 1 - for SIC Machine, 2 - for SIC/XE Machine, 3 - for Linkage Loader, 4 - for Absolute Loader, 5 - for Linking Editor or 6 - to Exit: ");
             Scanner a = new Scanner(System.in);
             int mach = a.nextInt();
             if (mach == 1) {
@@ -1387,9 +1387,7 @@ public class Main {
                                     break;
                                 }
                             }
-                            if (k == 6) {
-                                System.out.println("code for 8 = " + code + " \n format = " + formats.get(k));
-                            }
+
                             // if format 2
                             if (formats.get(k) == 2) {
                                 if (column3.get(k).length() == 1) {
@@ -1439,9 +1437,6 @@ public class Main {
                                     p = "0";
                                 }
 
-                                if (k == 6) {
-                                    System.out.println("n for 8 = " + n + "\n i for 8 = " + iii + "\n x for 8 = " + x + "\n  e for 8 = " + e);
-                                }
 
                                 if (p.equals("1")) {
                                     String TA;
@@ -1465,9 +1460,7 @@ public class Main {
                                     } else {
                                         TA = map.get(column3.get(k));
                                     }
-                                    if (k == 6) {
-                                        System.out.println("TA For 8 = " + TA);
-                                    }
+
                                     String dispHex;
                                     if (Integer.parseInt(TA, 16) < Integer.parseInt(startAddress.get(k + 1), 16)) {
 
@@ -1482,9 +1475,7 @@ public class Main {
 //                                        dispHex = RPad(Integer.toHexString(Integer.parseInt(TA, 16) - Integer.parseInt(startAddress.get(k + 1), 16)),5,'0');
 //
 //                                    }
-                                    if (k == 6) {
-                                        System.out.println("dispHex For 8 = " + dispHex);
-                                    }
+
 
                                     int dispDecimal;
                                     try {
@@ -1493,9 +1484,7 @@ public class Main {
                                         System.out.println(eq.toString() + " \n \n loop number : " + k + "\n TA = " + TA + "\n dispHex=" + dispHex);
                                         return;
                                     }
-                                    if (k == 6) {
-                                        System.out.println("dispDecimal For 8 = " + dispDecimal);
-                                    }
+
                                     if (dispDecimal > 2047) {
                                         p = "0";
                                         b = "1";
@@ -1504,15 +1493,9 @@ public class Main {
 
                                 }
                                 String opCodeInBinary = opCodeToBinary(code);
-                                if (k == 6) {
-                                    System.out.println("opCodeInBinary For 8 = " + opCodeInBinary);
-                                    System.out.println("b for 8 = " + b + " \n p for 8 = " + p);
-                                }
-                                opCodeInBinary = opCodeInBinary.concat(n).concat(iii).concat(x).concat(b).concat(p).concat(e);
-                                if (k == 6) {
-                                    System.out.println("updated opCode For 8 = " + opCodeInBinary);
 
-                                }
+                                opCodeInBinary = opCodeInBinary.concat(n).concat(iii).concat(x).concat(b).concat(p).concat(e);
+
                                 if (formats.get(k) == 3) {
                                     String dispHex;
                                     String TA;
@@ -1547,19 +1530,13 @@ public class Main {
                                         }
                                         //dispHex = RPad((Integer.toHexString(Integer.parseInt(TA, 16) - Integer.parseInt(startAddress.get(k + 1), 16))), 3, '0');
 
-                                        if (k == 6) {
-                                            System.out.println("TA  For 8 = " + TA);
 
-                                        }
 //                                        if(formats.get(k)==3) {
 //                                            dispHex = RPad(Integer.toHexString(Integer.parseInt(TA, 16) - Integer.parseInt(startAddress.get(k + 1), 16)),3,'0');
 //                                        }else{
 //                                            dispHex = RPad(Integer.toHexString(Integer.parseInt(TA, 16) - Integer.parseInt(startAddress.get(k + 1), 16)),5,'0');
 //                                        }
-                                        if (k == 6) {
-                                            System.out.println("dispHex  For 8 = " + dispHex);
 
-                                        }
 
                                     }
                                     // START OF CASE OF BASE RELATIVE
@@ -1578,10 +1555,7 @@ public class Main {
                                         } else {
                                             baseValue = map.get(column3.get(poss));
                                         }
-                                        if (k == 6) {
-                                            System.out.println("BASE For 8 = " + baseValue);
 
-                                        }
                                         String TA2;
                                         // CASE OF INDEXED
                                         if (column3.get(k).endsWith(",X")) {
@@ -1610,10 +1584,7 @@ public class Main {
                                         } else {
                                             dispHex = RPad((Integer.toHexString((Integer.parseInt(TA2, 16) - Integer.parseInt(baseValue, 16)))), 3, '0');
                                         }
-                                        if (k == 6) {
-                                            System.out.println("new disp HEX For 8 = " + dispHex);
 
-                                        }
                                         // dispHex = RPad((Integer.toHexString(Integer.parseInt(TA2, 16) - Integer.parseInt(baseValue, 16))), 3, '0');
 //                                        if(formats.get(k)==3) {
 //                                            dispHex = RPad(Integer.toHexString(Integer.parseInt(TA2, 16) - Integer.parseInt(baseValue, 16)),3,'0');
@@ -1644,14 +1615,9 @@ public class Main {
                                         }
                                     }
                                     objectCode = binaryToHex(opCodeInBinary);
-                                    if (k == 6) {
-                                        System.out.println("object code without disp For 8 = " + objectCode);
 
-                                    }
                                     objectCode = objectCode.concat(dispHex);
-                                    if (k == 6) {
-                                        System.out.println("object code with disp For 8 = " + objectCode);
-                                    }
+
                                 } else if (formats.get(k) == 4) {
                                     String dispHex2;
                                     String TA4;
@@ -1693,7 +1659,7 @@ public class Main {
                         }
                     }
                     // passTwoTable[i] = new String[]{startAddress.get(i + 1), column1.get(i + 1), startAddressTit.get(i + 1), column3.get(i + 1),}
-                    System.out.println("k= " + k + "\nn=" + n + "\niii=" + iii + "\nx=" + x + "\nb=" + b + "\np=" + p + "\ne=" + e + "\n");
+                    //   System.out.println("k= " + k + "\nn=" + n + "\niii=" + iii + "\nx=" + x + "\nb=" + b + "\np=" + p + "\ne=" + e + "\n");
 
                 }
                 System.out.println("----------------------------------------------------------Pass 2 Start-----------------------------------------------------------");
@@ -1732,6 +1698,7 @@ public class Main {
                 System.out.println("--------------------------------------------------------HTE Record--------------------------------------------------------");
                 StringBuilder hRecord = new StringBuilder();
                 StringBuilder tRecord = new StringBuilder();
+                StringBuilder mRecord = new StringBuilder();
                 StringBuilder eRecord = new StringBuilder();
                 List<StringBuilder> t = new ArrayList<>();
                 // ArrayList<String> ttRecord = new ArrayList<>();
@@ -1793,7 +1760,22 @@ public class Main {
 //                    }
 //                }
 
-          //      System.out.print(mRecord.toString());
+                //      System.out.print(mRecord.toString());
+
+
+                for (int i = 0; i < passTwoTable.length; i++) {
+                    if (passTwoTable[i][2].contains("+")) {
+                        int de = Integer.parseInt(passTwoTable[i][0], 16);
+                        de += 1;
+                        String fin = Integer.toHexString(de);
+                        mRecord.append("M˄");
+                        mRecord.append(RPad(fin, 6, '0'));
+                        mRecord.append("˄05\n");
+                    }
+                }
+
+                System.out.print(mRecord.toString());
+
                 eRecord.append("E˄");
                 eRecord.append(RPad(startAddress.get(0), 6, '0'));
                 System.out.print(eRecord.toString());
@@ -1802,10 +1784,218 @@ public class Main {
 
                 //////////////////// End of SIC/XE Machine ////////////////////
             } else if (mach == 3) {
+                // Linkage Loader
+                Scanner opop = new Scanner(System.in);
+                System.out.print("Enter the number of the Programs : ");
+                int numOfPrograms = opop.nextInt();
+
+
+                //  String ll2[] = new String[numOfPrograms];
+                List<String> ll = new ArrayList<>();
+                for (int i = 0; i < numOfPrograms; i++) {
+                    int h = i + 1;
+                    System.out.print("Enter the path of the program " + h + " text : ");
+                    String x = opop.next();
+                    ll.add(x);
+                }
+                System.out.print("Enter the Starting Address of the Load : ");
+                String startAddressForLoad = opop.next();
+                String startAddressAgain = startAddressForLoad;
+
+                LinkedHashMap<String, LinkedHashMap<String, String>> tRecordinMemory = new LinkedHashMap<>();
+                int co = 0;
+                for (int i = 0; i < 20; i++) {
+                    LinkedHashMap<String, String> columns = new LinkedHashMap<>();
+                    for (int j = 0; j < 16; j++) {
+                        columns.put(Integer.toHexString(j), "");
+                    }
+                    int pp = Integer.parseInt(startAddressAgain, 16);
+                    int pp2 = Integer.parseInt(String.valueOf(co), 16);
+                    int pp3 = pp + pp2;
+                    String addressToLoad = Integer.toHexString(pp3);
+                    co += 10;
+                    tRecordinMemory.put(addressToLoad, columns);
+                }
+                //  String [][] tRecordss = new String[1000000][15];
+                List<String> allTRecordss = new ArrayList<>();
+                LoadingTable table = new LoadingTable();
+                table.setShowVerticalLines(true);
+                //     table.setHeaders("0", "1", "2","3","4","5","6","7","8","9","A","B","C","D","E","F");
+                table.setHeaders("Control Section", "Symbol name", "Address", "Length");
+                HashMap<String, String> modificationHashMap = new HashMap<>();
+
+                for (int i = 0; i < ll.size(); i++) {
+                    HashMap<String, String> dRecordItems = new HashMap<>();
+                    HashMap<Integer, List<String>> tRecoredItems = new HashMap<>();
+                    HashMap<Integer, String> mRecoredItems = new HashMap<>();
+                    HashMap<Integer, String> tRecordLengths = new HashMap<>();
+                    HashMap<Integer, String> mRecordLengths = new HashMap<>();
+                    HashMap<Integer, String> tRecordStartingAddresses = new HashMap<>();
+                    HashMap<Integer, String> mRecordFromStarts = new HashMap<>();
+                    String proName = null, startingAddForProg = null, ProgLength = null;
+                    List<String> listToAdd = new ArrayList<>();
+                    int count = 1, count2 = 1;
+                    List<String> rRecordItems = new ArrayList<>();
+                    ReadingInput readingInput = new ReadingInput(ll.get(i));
+                    Converter converter = new Converter();
+                    String inp = readingInput.input;
+                    Scanner scanner = new Scanner(inp);
+                    for (int k = 0; scanner.hasNextLine(); k++) {
+                        String line = scanner.nextLine();
+
+                        if (line.charAt(0) == 'H') {
+                            proName = line.substring(2, 8);
+                            proName = proName.replace("X", "");
+                            startingAddForProg = line.substring(9, 15);
+                            ProgLength = line.substring(16);
+                        }
+                        if (line.charAt(0) == 'D') {
+                            String dRecord = line.substring(2);
+                            String[] splittedDRecord = dRecord.split("\\.");
+
+                            for (int y = 0; y < splittedDRecord.length - 1; y++) {
+                                if (y % 2 == 0)
+                                    dRecordItems.put(splittedDRecord[y], splittedDRecord[y + 1]);
+
+                            }
+                        }
+                        if (line.charAt(0) == 'R') {
+                            String rRecord = line.substring(2);
+                            String[] splittedRRecord = rRecord.split("\\.");
+
+                            rRecordItems = Arrays.asList(splittedRRecord);
+                        }
+
+                        if (line.charAt(0) == 'T') {
+                            String tRecordFromHTE = line.substring(2);
+                            String tRecordFromHTEStartAddress = tRecordFromHTE.substring(0, 6);
+                            String tRecordFromtHTELength = tRecordFromHTE.substring(7, 9);
+                            String tRecordFromHTEAfterFilter = tRecordFromHTE.substring(10);
+                            String[] tRecordToPut = splitToNChar(tRecordFromHTEAfterFilter, 2);
+                            tRecordLengths.put(count, tRecordFromtHTELength);
+                            tRecordStartingAddresses.put(count, tRecordFromHTEStartAddress);
+                            tRecoredItems.put(count++, Arrays.asList(tRecordToPut));
+
+                        }
+                        if (line.charAt(0) == 'M') {
+                            String mRecordFromHTE = line.substring(2);
+                            String mRecordFromHTEFarFromStart = mRecordFromHTE.substring(0, 6);
+                            String mRecrodFromtHTELength = mRecordFromHTE.substring(7, 9);
+                            String mRecordFromHTELengthRemaining = mRecordFromHTE.substring(9);
+                            mRecordLengths.put(count2, mRecrodFromtHTELength);
+                            mRecordFromStarts.put(count2, mRecordFromHTEFarFromStart);
+                            mRecoredItems.put(count2++, mRecordFromHTELengthRemaining);
+                        }
+                    }
+
+                    System.out.println("Program Name For 1st Program : " + proName + " and Starting address is : " + startingAddForProg + "  and the prog length is : " + ProgLength);
+                    System.out.println("################ d Record Items #############");
+                    dRecordItems.entrySet()
+                            .forEach(System.out::println);
+                    System.out.println("################ r Record Items #############");
+                    rRecordItems.forEach(System.out::println);
+                    System.out.println("################ T Record  #############");
+                    System.out.println("################ T Records Lengths #############");
+                    tRecordLengths.entrySet()
+                            .forEach(System.out::println);
+                    System.out.println("################ T Records Starting Address #############");
+                    tRecordStartingAddresses.entrySet()
+                            .forEach(System.out::println);
+                    System.out.println("################ T Record Items #############");
+                    tRecoredItems.entrySet()
+                            .forEach(System.out::println);
+                    System.out.println("################ M Record  #############");
+                    System.out.println("################ M Records Lengths #############");
+                    mRecordLengths.entrySet()
+                            .forEach(System.out::println);
+                    System.out.println("################ M Records Far From Start #############");
+                    mRecordFromStarts.entrySet()
+                            .forEach(System.out::println);
+                    System.out.println("################ M Record Items #############");
+                    mRecoredItems.entrySet()
+                            .forEach(System.out::println);
+
+                    table.addRow(proName, "", startAddressForLoad, ProgLength);
+                    for (Map.Entry<String, String> entry : dRecordItems.entrySet()) {
+                        System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
+                        int ad = Integer.parseInt(entry.getValue(), 16);
+                        int ad2 = Integer.parseInt(startAddressForLoad, 16);
+                        int sum = ad + ad2;
+                        String addd = Integer.toHexString(sum);
+                        table.addRow("", entry.getKey(), startAddressForLoad + " + " + entry.getValue() + " = " + addd, "");
+                        modificationHashMap.put(entry.getKey(), addd);
+                    }
+                    for (Map.Entry<Integer, List<String>> entry : tRecoredItems.entrySet()) {
+                        listToAdd.addAll(entry.getValue());
+                    }
+                    allTRecordss.addAll(listToAdd);
+                    System.out.println("######## Modification of " + proName);
+                    LoadingTable table1 = new LoadingTable();
+                    table1.setShowVerticalLines(true);
+                    table1.setHeaders("Address", "Operation", "Value");
+                    for (Map.Entry<Integer, String> entry : mRecoredItems.entrySet()) {
+//                        System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
+                        int mFromStart = Integer.parseInt(mRecordFromStarts.get(entry.getKey()), 16);
+                        int ad2 = Integer.parseInt(startAddressForLoad, 16);
+                        int sum = mFromStart + ad2;
+                        String addd = Integer.toHexString(sum);
+                        table1.addRow(startAddressForLoad + " + " + mRecordFromStarts.get(entry.getKey()) + " = " + addd, "", "");
+                    }
+                    table1.print();
+                    startAddressForLoad = Integer.toHexString((Integer.parseInt(startAddressForLoad, 16)) + (Integer.parseInt(ProgLength, 16)));
+
+
+                }
+                table.print();
+                System.out.println(Arrays.toString(allTRecordss.toArray()));
+//                System.out.println(allTRecordss.size());
+                int m = 0;
+                for (Map.Entry<String, LinkedHashMap<String, String>> entry : tRecordinMemory.entrySet()) {
+                    for (Map.Entry<String, String> entry2 : entry.getValue().entrySet()) {
+                        if (m<allTRecordss.size()) {
+                            entry2.setValue(allTRecordss.get(m++));
+                        } else {
+                            break;
+                        }
+                    }
+                    entry.setValue(entry.getValue());
+
+                }
+                tRecordinMemory.entrySet()
+                        .forEach(System.out::println);
+                //System.out.print(readingInput.input);
+
+
+                int startingHex = 0;
+                int addedvalue = 0;
+                ArrayList<Integer> formats = new ArrayList<>();
+
+            } else if (mach == 4) {
+                // Linkage Loader
+            } else if (mach == 5) {
+                // Linking Editor
+            } else if (mach == 6) {
                 break;
             }
         }
 
+    }
+
+    /**
+     * Split text into n number of characters.
+     *
+     * @param text the text to be split.
+     * @param size the split size.
+     * @return an array of the split text.
+     */
+    private static String[] splitToNChar(String text, int size) {
+        List<String> parts = new ArrayList<>();
+
+        int length = text.length();
+        for (int i = 0; i < length; i += size) {
+            parts.add(text.substring(i, Math.min(length, i + size)));
+        }
+        return parts.toArray(new String[0]);
     }
 
     public static String RPad(String str, Integer length, char car) {

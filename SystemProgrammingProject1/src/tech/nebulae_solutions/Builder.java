@@ -64,7 +64,7 @@ public class Builder {
             calculatedOutput.add(Integer.toHexString(recordedDifference));
             StringBuilder s = new StringBuilder();
             s.append("T^");
-            s.append(Integer.toHexString(firstItemNumber));
+            s.append(RPad(Integer.toHexString(firstItemNumber),6,'0'));
             s.append("^");
             s.append(Integer.toHexString(recordedDifference));
             s.append("^");
@@ -75,6 +75,9 @@ public class Builder {
         }
     }
 
+    public static String RPad(String str, Integer length, char car) {
+        return (String.format("%" + length + "s", "").replace(" ", String.valueOf(car)) + str).substring(str.length(), length + str.length());
+    }
     void incrementRow() {
         row++;
         tempMatrix.add(new ArrayList<MyObject>());
