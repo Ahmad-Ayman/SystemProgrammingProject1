@@ -1952,7 +1952,7 @@ public class Main {
                 int m = 0;
                 for (Map.Entry<String, LinkedHashMap<String, String>> entry : tRecordinMemory.entrySet()) {
                     for (Map.Entry<String, String> entry2 : entry.getValue().entrySet()) {
-                        if (m<allTRecordss.size()) {
+                        if (m < allTRecordss.size()) {
                             entry2.setValue(allTRecordss.get(m++));
                         } else {
                             break;
@@ -1972,6 +1972,145 @@ public class Main {
 
             } else if (mach == 4) {
                 // Linkage Loader
+                Scanner opop = new Scanner(System.in);
+                System.out.print("Enter the number of the Programs : ");
+                int numOfPrograms = opop.nextInt();
+
+
+                //  String ll2[] = new String[numOfPrograms];
+                List<String> ll = new ArrayList<>();
+                for (int i = 0; i < numOfPrograms; i++) {
+                    int h = i + 1;
+                    System.out.print("Enter the path of the program " + h + " text : ");
+                    String x = opop.next();
+                    ll.add(x);
+                }
+                LinkedHashMap<String, LinkedHashMap<String, String>> tRecordinMemory = new LinkedHashMap<>();
+                int co = 0;
+                for (int i = 0; i < 20; i++) {
+                    LinkedHashMap<String, String> columns = new LinkedHashMap<>();
+                    for (int j = 0; j < 16; j++) {
+                        columns.put(Integer.toHexString(j), "");
+                    }
+                    int pp = Integer.parseInt("000000", 16);
+                    int pp2 = Integer.parseInt(String.valueOf(co), 16);
+                    int pp3 = pp + pp2;
+                    String addressToLoad = Integer.toHexString(pp3);
+                    co += 10;
+                    tRecordinMemory.put(addressToLoad, columns);
+                }
+                //  String [][] tRecordss = new String[1000000][15];
+                List<String> allTRecordss = new ArrayList<>();
+                List<Integer> tryAbsoluteSize = new ArrayList<>();
+
+                for (int i = 0; i < ll.size(); i++) {
+                    HashMap<String, String> dRecordItems = new HashMap<>();
+                    HashMap<Integer, List<String>> tRecoredItems = new HashMap<>();
+                    List<String> tryAbsolute = new ArrayList<>();
+                    HashMap<Integer, String> mRecoredItems = new HashMap<>();
+                    HashMap<Integer, String> tRecordLengths = new HashMap<>();
+                    HashMap<Integer, String> mRecordLengths = new HashMap<>();
+                    HashMap<Integer, String> tRecordStartingAddresses = new HashMap<>();
+                    HashMap<Integer, String> mRecordFromStarts = new HashMap<>();
+                    String proName = null, startingAddForProg = null, ProgLength = null;
+                    List<String> listToAdd = new ArrayList<>();
+                    int count = 1, count2 = 1;
+                    List<String> rRecordItems = new ArrayList<>();
+                    ReadingInput readingInput = new ReadingInput(ll.get(i));
+                    Converter converter = new Converter();
+                    String inp = readingInput.input;
+                    Scanner scanner = new Scanner(inp);
+                    for (int k = 0; scanner.hasNextLine(); k++) {
+                        String line = scanner.nextLine();
+
+                        if (line.charAt(0) == 'H') {
+                            proName = line.substring(2, 8);
+                            proName = proName.replace("X", "");
+                            startingAddForProg = line.substring(9, 15);
+                            ProgLength = line.substring(16);
+
+                        }
+
+
+                        if (line.charAt(0) == 'T') {
+                            String tRecordFromHTE = line.substring(2);
+                            String tRecordFromHTEStartAddress = tRecordFromHTE.substring(0, 6);
+                            String tRecordFromtHTELength = tRecordFromHTE.substring(7, 9);
+                            String tRecordFromHTEAfterFilter = tRecordFromHTE.substring(10);
+                            String[] tRecordToPut = splitToNChar(tRecordFromHTEAfterFilter, 2);
+                            tRecordLengths.put(count, tRecordFromtHTELength);
+                            tRecordStartingAddresses.put(count, tRecordFromHTEStartAddress);
+                            tryAbsolute.addAll(Arrays.asList(tRecordToPut));
+
+                            //  tRecoredItems.put(count++, Arrays.asList(tRecordToPut));
+
+                        }
+
+                    }
+                    tryAbsoluteSize.add(tryAbsolute.size());
+
+
+                    System.out.println("Program Name For 1st Program : " + proName + " and Starting address is : " + startingAddForProg + "  and the prog length is : " + ProgLength);
+
+                    System.out.println("################ T Record  #############");
+                    System.out.println("################ T Records Lengths #############");
+                    tRecordLengths.entrySet()
+                            .forEach(System.out::println);
+                    System.out.println("################ T Records Starting Address #############");
+                    tRecordStartingAddresses.entrySet()
+                            .forEach(System.out::println);
+                    System.out.println("################ T Record Items #############");
+                    tRecoredItems.entrySet()
+                            .forEach(System.out::println);
+
+
+                    allTRecordss.addAll(tryAbsolute);
+
+
+                }
+                ArrayList<String> nList = new ArrayList<>();
+                int indexOfAllRecords=0;
+                for (int mq = 0; mq < tryAbsoluteSize.size(); mq++) {
+             //       System.out.print(" - "+mq+" - ");
+
+                    for (int kk = 0; kk < tryAbsoluteSize.get(mq); kk++) {
+                   //     System.out.print(kk+" ");
+                        if (indexExists(nList, kk)) {
+                            nList.set(kk, allTRecordss.get(indexOfAllRecords++));
+
+                        } else {
+                            nList.add(allTRecordss.get(indexOfAllRecords++));
+                        }
+                    }
+
+                }
+
+//                System.out.println(indexOfAllRecords);
+//                System.out.println(Arrays.toString(allTRecordss.toArray()));
+//                System.out.println(allTRecordss.size());
+//                System.out.println(Arrays.toString(tryAbsoluteSize.toArray()));
+//                System.out.println();
+                System.out.println();
+//                System.out.println(Arrays.toString(nList.toArray()));
+
+//                System.out.println(allTRecordss.size());
+                int m = 0;
+                for (Map.Entry<String, LinkedHashMap<String, String>> entry : tRecordinMemory.entrySet()) {
+                    for (Map.Entry<String, String> entry2 : entry.getValue().entrySet()) {
+                        if (m < nList.size()) {
+                            entry2.setValue(nList.get(m++));
+                        } else {
+                            break;
+                        }
+                    }
+                    entry.setValue(entry.getValue());
+
+                }
+                tRecordinMemory.entrySet()
+                        .forEach(System.out::println);
+                //System.out.print(readingInput.input);
+
+
             } else if (mach == 5) {
                 // Linking Editor
             } else if (mach == 6) {
@@ -2118,5 +2257,10 @@ public class Main {
         }
 
         return twos;
+    }
+
+
+    public static boolean indexExists(final List list, final int index) {
+        return index >= 0 && index < list.size();
     }
 }
